@@ -1,0 +1,211 @@
+#compdef grow
+
+_grow() {
+  local _1st_arguments _help _build_opts _deploy_opts _preprocess_opts
+  local _locale_opts _download_translation_opts _extract_opts _filter_opts
+  local _outdir _imports_translations_opts _init_opts _install_opts
+  local _machine_translate_opts _run_opts
+  local _stage_opts _stats_opts _upload_translations_opts
+  typeset -A opt_args
+
+  _1st_arguments=(
+  'build:Generates static files and dumps them to a local destination.' \
+  'deploy:Deploys a pod to a destination.' \
+  'download_translations:Downloads translations form a translation service.' \
+  'extract:Extracts tagged messages from source files into a template catalog.' \
+  'filter:Filters untranslated messages form catalogs into new catalogs.' \
+  'import_translations:Imports translations from an external source.'  \
+  'install:Checks whether the pod depends on npm, bower, and gulp. Optionally installs gerrit hook' \
+  'machine_translate:Translates the pod message catalog using machine translation.' \
+  'preprocess:Runs preprocessors.' \
+  'routes:Lists routes handled by a pod.' \
+  'run:Starts a developments server for a single pod.' \
+  'stage:Stages a build on a WebReview server.' \
+  'stats:Displays statistics about the pod.' \
+  'upload_translations:Uploads translations to a translation service.'
+  )
+
+  _locale_opts=(
+  '(--locale)--locale[Which locale(s) to download. If unspecified, translations for all locales will be downloaded.]'
+  )
+
+  _help=(
+  '(--help)--help[Show this message and exit.]'
+  )
+
+  _outdir=(
+  '(--outdir)--out_dir[Where to output files.]'
+  )
+
+  _deploy_opts=(
+  '(-c --confirm -f --noconfirm)'{-c,--confirm,-f,--noconfirm}'[Whether to confirm prior to deploment. (-c --confirm / -f --noconfirm)]' \
+  '(--preprocess --no-preprocess)'{--preprocess,--no-preprocess}'[Whether to run preprocessors.]' \
+  '(--test --notest)'{--test,--notest}'[Whether to run  deployment tests]' \
+  '(--test_only)--test_only[Only run deployment tests.]'
+  )
+
+  _download_translation_opts=(
+  '(-s --service)'{'-s','--service'}'[Name of the translator service to use. This options is only required if more than one service is configured.]'
+  )
+
+  _extract_opts=(
+  '(--include-obsolete --no-include-obsolete)'{--include-obsolete,--no-include-obsolete}'[Whether to include obsolete messages. If fale, no obsolete messages will be removed form the catalog template. By default, Grow cleans obsolete messages form the catalog template]' \
+  '(--localized --no-localized)'{'--localized','--no-localized'}'[Whether to create localized message catalogs. Use this option if content varies by locale.]' \
+  '(--init --no-init)'{'--init','--no-init'}'[Whether to create an initial set of empty tranlations catalogs using the locales configured in podspec.]' \
+  '(--update --no-update)'{--update,--no-update}'[Whether to update translation catalogs with extracted messages.]' \
+  '(--include-header)--include-header[Whether to preserve headers at the beginning of catalogs.]' \
+  '(--fuzzy-matching --no-fuzzy-matching)'{--fuzzy-matching,--no-fuzzy-matching}'[Whether to use fuzzy matching when updating translation catalogs.]'
+  )
+
+  _filter_opts=(
+  '(--include-obsolete --no-include-obsolete)'{--include-obsolete,--no-include-obsolete}'[Whether to include obsolete messages. If fale, no obsolete messages will be removed form the catalog template. By default, Grow cleans obsolete messages form the catalog template]' \
+  '(--localized --no-localized)'{'--localized','--no-localized'}'[Whether to create localized message catalogs. Use this option if content varies by locale.]' \
+  '(--include-header)--include-header[Whether to preserve headers at the beginning of catalogs.]' \
+  '(-f)-f[force update]' \
+  '(-o)-o[Where to write the extracted translation catalog. Path must be relatie to the pods root.]' \
+  '(--path)--path[Which paths to extract strings from. By default all paths are extracted.]'
+  )
+
+  _imports_translations_opts=(
+  '(--source)--source[Path to source (either zip file, directory, or file). [required]]' \
+  '(--locale)--locale[Locale of the message catalog to import. This options is only applicabe when --source is a .po file.]'
+  )
+
+  _init_opts=(
+  '(--force)--force[Whether to overwrite existing files.]'
+  )
+
+  _install_opts=(
+  '(--gerrit --no-gerrit)'{--gerrit,--no-gerrit}'[Whether to install the Gerrit Code Review commit hook.]'
+  )
+
+  _preprocess_opts=(
+  '(-A --all)'{-A,--all}'[Whether to run all prprocessors, even if a preprocessor has autorun disabled.]' \
+  '(-p --preprocessor)'{-p,--preprocessor}'[Name of the preprocessor to run]' \
+  '(-tag --tag)'{-tag,--tag}'[Tags of preprocessors to run. Preprocessors controlled by the preprocess command must have names or tags.]' \
+  '(--ratelimit)--ratelimit[Limit the execution speed of preprocessors. Will sleep for X seconds]'
+  )
+
+  _run_opts=(
+  '(--host)--host' \
+  '(--port)--port' \
+  '(--https)--https[Whether to use "https" in the local environment.]' \
+  '(--debug --no-debug)'{--debug,--no-debug}'[Whether to run in debug mode and show internal tracebacks when encountering exceptions.]' \
+  '(-b --browser --no-browser)'{-b,--browser,--no-browser}'[Whether to open a browser upon startup.]' \
+  '(--update-check --no-update-check)'{--update-check,--no-update-check}'[Whether to check for updates to Grow.]' \
+  '(--preprocess --no-preprocess)'{--preprocess,--no-preprocess}'[Whether to run preprocessors on server start.]'
+  )
+
+  _stage_opts=(
+  '(--preprocess --no-preprocess)'{--preprocess,--no-preprocess}'[Whether to run preprocessors.]' \
+  '(--remote)--remote[WebReview remote address.]' \
+  '(--subdomain)--subdomain[Assign a subdomain to this build.]'
+  )
+
+  _stats_opts=(
+  '(-f --full --no-full)'{-f,--full,--no-full}'[Whether to show full stats. By default, only short stats are displayed.]'
+  )
+
+  _upload_translations_opts=(
+  '(--locale)--locale[Which locale(s) to upload. If unspecified all will be uploaded.]' \
+  '(-f --force --noforce)'{-f,--force,--noforce}'[Whether to skip the prompt prior to uploading.]' \
+  '(-s --service)'{-s,--service}'[Name of the translator service to use. Only required if more than one is configured.]' \
+  '(--update-cl)--update-cl[Whether to update the ACL on uploaded resouces instead of uploading new translation files.]' \
+  '(-d --download)'{-d,--download}'[Whenther to download any existing translations prior to uploading.]'
+  )
+
+  _arguments \
+    '*:: :->subcmds' && return 0
+
+  if (( CURRENT == 1 )); then
+    _describe -t commands "grow subcommand" _1st_arguments
+    return
+  fi
+
+  case "$words[1]" in
+    build)
+      _arguments \
+      $_help \
+      $_preprocess_opts \
+      $_outdir
+    ;;
+    deploy)
+      _arguments \
+      $_help \
+      $_deploy_opts
+    ;;
+    download_translations)
+      _arguments \
+      $_help \
+      $_locale_opts \
+      $_download_translation_opts
+    ;;
+    extract)
+      _arguments \
+      $_help \
+      $_locale_opts \
+      $_extract_opts
+    ;;
+    filter)
+      _arguments \
+      $_help \
+      $_locale_opts \
+      $_filter_opts \
+      $_outdir
+    ;;
+    import_translations)
+      _arguments \
+      $_help \
+      $_imports_translations_opts
+    ;;
+    init)
+      _arguments \
+      $_help \
+      $_init_opts
+    ;;
+    intall)
+      _arguments \
+      $_help \
+      $_install_opts
+    ;;
+    machine_translate)
+      _arguments \
+      $_help
+      $_locale_opts
+    ;;
+    preprocess)
+      _arguments \
+      $_help \
+      $_preprocess_opts
+    ;;
+    routes)
+      _arguments \
+      $_help
+    ;;
+    run)
+      _arguments \
+      $_help \
+      $_run_opts
+    ;;
+    stage)
+      _arguments \
+      $_help \
+      $_stage_opts
+    ;;
+    stats)
+      _arguments \
+      $_help \
+      $_stats_opts
+    ;;
+    upload_translations)
+      _arguments \
+      $_help \
+      $_upload_translations_opts
+    ;;
+    *)
+      _arguments
+    ;;
+  esac
+}
+
+_grow "$@"
